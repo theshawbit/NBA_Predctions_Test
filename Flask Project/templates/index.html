@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Predictions</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+
+        .odd {
+            background-color: #fff;
+        }
+
+        .even {
+            background-color: #f9f9f9;
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .page-item {
+            margin-right: 5px;
+        }
+
+        .page-link {
+            padding: 8px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .page-link:hover {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>NBA Predictions for Tomorrow</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    <th onclick="sortTable('{{ column }}')">{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in predictions.iterrows() %}
+                <tr class="{{ 'even' if loop.index is even else 'odd' }}">
+                    {% for column in columns %}
+                        <td>{{ row[column] }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <ul class="pagination">
+        {% for page in range(1, predictions.shape[0] // 10 + 2) %}
+            <li class="page-item">
+                <a class="page-link" href="#">{{ page }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        function sortTable(column) {
+            // Add sorting logic here
+            alert('Sorting by ' + column);
+        }
+    </script>
+
+</body>
+
+</html>
